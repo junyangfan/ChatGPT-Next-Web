@@ -12,6 +12,7 @@ import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
 import DragIcon from "../icons/drag.svg";
+import BlogIcon from "../icons/blog.svg";
 
 import Locale from "../locales";
 
@@ -30,6 +31,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { isIOS, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { showConfirm, showToast } from "./ui-lib";
+import { getServerSideConfig } from "../config/server";
+
+const serverConfig = getServerSideConfig();
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -131,6 +135,8 @@ function useDragSideBar() {
 export function SideBar(props: { className?: string }) {
   const chatStore = useChatStore();
 
+  const blogUrl = serverConfig.blogUrl || "https://blog.fanjunyang.zone";
+
   // drag side bar
   const { onDragStart, shouldNarrow } = useDragSideBar();
   const navigate = useNavigate();
@@ -216,9 +222,14 @@ export function SideBar(props: { className?: string }) {
               <IconButton icon={<SettingsIcon />} shadow />
             </Link>
           </div>
-          <div className={styles["sidebar-action"]}>
+          {/* <div className={styles["sidebar-action"]}>
             <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
               <IconButton icon={<GithubIcon />} shadow />
+            </a>
+          </div> */}
+          <div className={styles["sidebar-action"]}>
+            <a href={blogUrl} target="_blank" rel="noopener noreferrer">
+              <IconButton icon={<BlogIcon />} shadow />
             </a>
           </div>
         </div>

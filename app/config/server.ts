@@ -22,6 +22,9 @@ declare global {
       DISABLE_FAST_LINK?: string; // disallow parse settings from url or not
       CUSTOM_MODELS?: string; // to control custom models
 
+      // blog
+      BLOG_URL?: string;
+
       // azure only
       AZURE_URL?: string; // https://{azure-url}/openai/deployments/{deploy-name}
       AZURE_API_KEY?: string;
@@ -79,6 +82,8 @@ export const getServerSideConfig = () => {
     baseUrl: process.env.BASE_URL,
     apiKey,
     openaiOrgId: process.env.OPENAI_ORG_ID,
+
+    blogUrl: process.env.BLOG_URL,
 
     isAzure,
     azureUrl: process.env.AZURE_URL,
